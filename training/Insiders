@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# エクセルファイルのパス
+excel_files = ['path/to/your/excel_file1.xlsx',
+               'path/to/your/excel_file2.xlsx',
+               'path/to/your/excel_file3.xlsx']
+
+# グラフの数
+num_graphs = len(excel_files)
+
+# グラフの描画
+plt.figure(figsize=(15, 10))  # 全体の図のサイズを設定
+
+for i, excel_file in enumerate(excel_files):
+    # エクセルファイルからデータを読み込む
+    df = pd.read_excel(excel_file)
+
+    # データを取得する
+    precision = df['Precision']
+    recall = df['Recall']
+    thresholds = df['Threshold']
+
+    # サブプロットを設定
+    plt.subplot(num_graphs, 1, i + 1)
+    plt.plot(recall, precision, marker='.')
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title(f'Precision-Recall Curve {i + 1}')
+    plt.grid(True)
+
+plt.tight_layout()
+plt.show()
